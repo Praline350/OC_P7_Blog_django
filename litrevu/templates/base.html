@@ -1,9 +1,42 @@
-<html>
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,800&display=swap">
+        <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/login.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/feed.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/forms.css' %}" rel="stylesheet" />
+
+        <script src="{% static 'js/login.js' %}" defer></script>
         <title>LitRevu</title>
     </head>
     <body>
-        <h1>LitRevu</h1>
+        {% if user.is_authenticated %}
+        <nav class="navbar">
+            <div class="nav-left">
+                <img class="logo" src="{% static 'images/logo_without_title.png' %}">
+                <h1>LIT<span>Review</span></h1>
+            </div>
+            <div class="nav-right">
+                <a class="fancy-link" href="{% url 'home' %}">Flux</a>
+                <!-- Lien pour liste user-->
+                <!-- lien pour profile + photo profile-->
+                <a class="fancy-link" href="{% url 'logout' %}">Se déconnecter</a>
+                {% if user.profile_photo %}
+                    <img id="avatar" src="{{ user.profile_photo.url }}">
+                {% else %}
+                    <img id="avatar" src="{% static 'images/default_profile.png' %}">
+                {% endif %}
+                
+            </div>
+        </nav>
+
+        {% endif %}
+
         {% if messages %}
             <ul>
                 {% for message in messages %}
@@ -11,11 +44,13 @@
                 {% endfor %}
             </ul>
         {% endif %}
+
         {% block content %}{% endblock content %}
 
         {% if user.is_authenticated %}
-            <p>Vous êtes connecté en tant que {{ request.user }}. <a href="{% url 'logout' %}">Se déconnecter</a></p>
-            <p>Voulez-vous <a href="{% url 'password_change' %}">changer votre mot de passe ?</a></p>
+            <p>Vous êtes connecté en tant que {{ request.user }}. 
+            <a class="fancy-link" href="{% url 'upload_profile_photo' %}">changer de photo</a>
         {% endif %}
+
     </body>
 </html>
