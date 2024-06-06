@@ -1,0 +1,86 @@
+
+.button-container{
+    display: flex;
+    justify-content: space-between;
+    
+    align-items: center;
+    padding-top: 10px;
+}
+
+.button-review {
+    display: inline-block;
+    justify-content: center;
+    padding: 12px 45px;
+    border-radius: 20px;
+    border: 1px solid #d99450;
+    background-color: #d99450;
+    color: #FFFFFF;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none; /* Pour enlever le soulignement des liens */
+    transition: transform 80ms ease-in;
+}
+
+.button-review:hover {
+    background-color: #b87f42;
+}
+
+.button-review:active {
+    transform: scale(0.95);
+}
+
+/* Bouton menu deroulant tickets */
+
+.dropdown {
+    
+    position: relative;
+    display: inline;
+    align-items: center;
+
+}
+
+.dropbtn {
+    padding-right: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn img {
+    width: 15px;
+    height: auto;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    opacity: 0.5;
+}
