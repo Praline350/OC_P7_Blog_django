@@ -12,7 +12,7 @@ class ImageForm(forms.ModelForm):
 class TicketForm(forms.ModelForm):
     class Meta:
         model = models.Ticket
-        fields = ['title', 'description', 'image']
+        fields = ['type', 'title', 'description', 'image']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -34,6 +34,14 @@ class TicketEditForm(forms.ModelForm):
 class ReviewForm(forms.ModelForm):
     # Champ supplémentaire pour recevoir l'objet Ticket
     ticket = forms.ModelChoiceField(queryset=None, widget=forms.HiddenInput)
+    RATING_CHOICES = [
+        (1, '1 étoile'),
+        (2, '2 étoiles'),
+        (3, '3 étoiles'),
+        (4, '4 étoiles'),
+        (5, '5 étoiles'),
+    ]
+    rating = forms.ChoiceField(choices=RATING_CHOICES, widget=forms.Select)
 
     class Meta:
         model = models.Review
