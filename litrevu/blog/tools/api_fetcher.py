@@ -4,7 +4,7 @@ import requests
 class APIFecther:
     def __init__(self):
         self.url = 'https://www.googleapis.com/books/v1/volumes'
-        self.key = 'AIzaSyB-pg-yIY8OM4mIKhzWv-rDyYmGu2HtYDY'
+        self.key = ''
 
     def get_books(self, query):
         url = 'https://www.googleapis.com/books/v1/volumes'
