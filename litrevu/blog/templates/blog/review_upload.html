@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <div class="review-container">
-        <h2>Ecrire une critique</h2>
-        <form method="post" enctype="multipart/form-data">
-            {{ form.as_p }}
-            {% csrf_token %}
-            <button type="submit">Publier</button>
-        </form>
+    <div class="form-ticket-container">
+        <div class="form-ticket-box">
+            <h2>Ecrire une critique</h2>
+            <form class="form-ticket" method="post" enctype="multipart/form-data">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <button type="submit">Publier</button>
+            </form>
+        </div>
     </div>
     
 {% endblock content %}
