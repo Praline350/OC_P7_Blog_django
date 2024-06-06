@@ -7,29 +7,50 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import PasswordChangeForm
 from django.views.generic import View
 
-from authentication.forms import LoginForm, SignUpForm
-
+from authentication.forms import LoginForm, SignUpForm, UploadProfilePhotoForm
 
 class LoginPageView(View):
     template_name = 'authentication/login.html'
-    form_class = LoginForm
+    login_form_class = LoginForm
+    signup_form_class = SignUpForm
 
     def get(self, request):
-        form = self.form_class()
-        return render(request, self.template_name, context={'form': form})
+        if request.user.is_authenticated:
+            return redirect('home')
+        login_form = self.login_form_class()
+        signup_form = self.signup_form_class()
+        context = {
+            'login_form': login_form,
+            'signup_form': signup_form,
+        }
+        return render(request, self.template_name, context=context)
         
     def post(self, request):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            user = authenticate(
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password'],
-            )
-            if user is not None:
+        login_form = self.login_form_class(request.POST)
+        signup_form = self.signup_form_class(request.POST)
+        if 'login_form' in request.POST:
+            if login_form.is_valid():
+                user = authenticate(
+                    username=login_form.cleaned_data['login_username'],
+                    password=login_form.cleaned_data['password'],
+                )
+                if user is not None:
+                    login(request, user)
+                    return redirect('home')
+                else:
+                    messages.error(request, 'Identifiants Invalides')
+        if 'signup_form' in request.POST:
+            if signup_form.is_valid():
+                user = signup_form.save()
                 login(request, user)
-                return redirect('home')
-        messages.error(request, 'Identifiants Invalides')
-        return render(request, self.template_name, context={'form': form})
+                return redirect(settings.LOGIN_REDIRECT_URL)
+            else:
+                messages.error(request, 'Erreur d\'inscription')
+        context = {
+            'login_form': login_form,
+            'signup_form': signup_form,
+        }
+        return render(request, self.template_name, context=context)
 
 
 def logout_user(request):
@@ -37,21 +58,14 @@ def logout_user(request):
     return redirect('login')
 
 
-class SignUpView(View):
-    template_name = 'authentication/signup.html'
-    form_class = SignUpForm
-
-    def get(self, request):
-        form = self.form_class()
-        return render(request, self.template_name, context={'form': form})
-    
-    def post(self, request):
-        form = self.form_class(request.POST)
+def upload_profile_photo(request):
+    form = UploadProfilePhotoForm(instance=request.user)
+    if request.method == 'POST':
+        form = UploadProfilePhotoForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect(settings.LOGIN_REDIRECT_URL)
-        return render(request, self.template_name, context={'form': form})
+            form.save()
+            return redirect('home')
+    return render(request, 'authentication/upload_profile_photo.html', context={'form': form})
 
 
 class ChangePasswordView(LoginRequiredMixin, View):
