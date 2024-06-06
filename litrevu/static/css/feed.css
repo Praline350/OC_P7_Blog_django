@@ -1,0 +1,189 @@
+.main-content{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 20px;
+    padding: 20px;
+}
+
+
+
+.feed{
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.side-left{
+    justify-self: center;
+    grid-row: 1;
+    grid-column: 1;
+}
+
+.side-right{
+    
+    margin-top: 20px;
+    justify-self: center;
+    text-align: center;
+    grid-row: 1;
+    grid-column: 3;
+}
+
+.side-sticky{
+    position: sticky;
+    top: 200px;
+}
+
+.side-title{
+   
+    padding: 15px;
+    border-bottom: 2px solid black ;
+}
+
+.ticket{
+    margin-bottom: 20px;
+    background-color: white;
+    border: 2px solid #D4A373;
+    border-radius: 15px;
+    padding: 15px;
+    padding-bottom: 0px;
+}
+
+.ticket-header{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    align-items: center;
+}
+
+.ticket-user-info{
+    display:flex;
+    align-items: center;
+    grid-column: 1;
+}
+.ticket-avatar{
+    width: 90px;
+    height: auto;
+    border-radius: 50px;
+}
+
+.ticket-header__user{
+    padding-left: 10px;
+    font-weight: 500;
+    font-size: 1.4em;
+}
+
+
+.ticket-header__title{
+    text-align: center;
+    
+}
+
+.ticket-header__time{
+    text-align: right;
+    padding-right: 10px;
+}
+
+.ticket-content{
+    display: grid;
+    grid-template-columns: 1.8fr 1fr;
+    align-items: center;
+}
+
+.ticket-content__desc{
+    font-size: 1em;
+    grid: 1;
+    padding: 20px;
+}
+
+.ticket-content__img{
+    grid: 2;
+    justify-self: right;
+    padding-right: 30px;
+    height: 200px;
+    width: auto;
+}
+
+
+.button-container{
+    display: flex;
+    justify-content: space-between;
+    
+    align-items: center;
+    padding-top: 10px;
+}
+
+.button-review {
+    display: inline-block;
+    justify-content: center;
+    padding: 12px 45px;
+    border-radius: 20px;
+    border: 1px solid #d99450;
+    background-color: #d99450;
+    color: #FFFFFF;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none; /* Pour enlever le soulignement des liens */
+    transition: transform 80ms ease-in;
+}
+
+.button-review:hover {
+    background-color: #b87f42;
+}
+
+.button-review:active {
+    transform: scale(0.95);
+}
+
+.dropdown {
+    
+    position: relative;
+    display: inline;
+    align-items: center;
+
+}
+
+.dropbtn {
+    padding-bottom: 0px;
+    padding-right: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn img {
+    width: 20px;
+    height: auto;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    opacity: 0.5;
+}
