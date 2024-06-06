@@ -1,6 +1,72 @@
+
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 
-    <p>Vous êtes connecté !</p>
+<main class="main-content">
+    <div class="feed">
+        {% for ticket in tickets %}
+        <div class="ticket">
+            <!--{% for review in ticket.review_set.all %}
+            <h3>{{ review.user }} à publié une critique</h3>
+            <div class="review">
+                 Display review details here 
+                <p>{{ review.rating }}</p>
+                <p>{{ review.headline }}</p>
+                <p>{{ review.body }}</p>
+            </div>
+            {% empty %}
+            {% endfor %}-->
+            <div class="ticket-header">
+                <div class="ticket-user-info">
+                    <img class="ticket-avatar" src="{{ ticket.user.profile_photo.url }}">
+                    <p class="ticket-header__user">{{ ticket.user }}</p> 
+                </div>
+                <h3 class="ticket-header__title">{{ ticket.title}}  -  Author </h3>
+                <p class="ticket-header__time" >{{ ticket.time_created }} </p>
+            </div>
+
+            <div class="ticket-content">
+                <p class="ticket-content__desc"> {{ ticket.description }} </p>
+                {% if ticket.image and ticket.image.url %}
+                <img class="ticket-content__img" src="{{ ticket.image.url }}" alt="{{ ticket.title }}">
+                {% else %}
+                <img class="ticket-content__img" src="{% static 'images/no_image.png' %}">
+                {% endif %}
+            </div>
+            <div class="button-container">
+                <a class="button-review" href="{% url 'review_upload' ticket.pk %}">Soumettre une critique</a>
+                {% if ticket.is_creator %}
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        <img src="{% static 'images/btn_menu.png' %}" alt="Options">
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'ticket_edit' ticket.pk %}">Modifier</a>
+                        <a href="{% url 'ticket_delete' ticket.pk %}">Supprimer</a>
+                    </div>
+                </div>
+                {% endif %}
+                
+            </div>
+            
+            
+            
+        
+        </div>
+        {% endfor %}
+        
+    </div>
+    <div class="side-left">
+    </div>
+    <div class="side-right">
+        <div class="side-sticky">
+            <h2 class="side-title" >Pour participer à la communauté ! </h2>
+            <a class="button-review" href="{% url 'ticket_upload' %}">Demander une critique</a>
+        </div>  
+        
+    </div>
+</main>
+   
     
 {% endblock content %}

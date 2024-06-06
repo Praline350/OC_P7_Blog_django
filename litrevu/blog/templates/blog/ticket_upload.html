@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="form-ticket-container">
+        <div class="form-ticket-box">
+            <h2>-Ecrire un ticket-<br>-Demande de critique-</h2>
+            <form class="form-ticket" method="post" enctype="multipart/form-data">
+                {{ ticket_form.as_p }}
+                {% csrf_token %}
+                <button type="submit">Publier</button>
+            </form>
+        </div>
+    </div>
+    
+{% endblock content %}
