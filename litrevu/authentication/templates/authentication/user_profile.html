@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load blog_extras %}
+{% block content %}
+
+<div class="profile-container">
+    <div class="profile-header">
+        <img class="ticket-avatar" src="{{ user|profile_photo_or_default }}" alt="Profile photo">
+        <div class="profile-name">
+            <h2>{{ user.username|capitalize_first }}</h2>
+        </div>
+        <div class="profile-info">
+            <!-- Autres informations de profil -->
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

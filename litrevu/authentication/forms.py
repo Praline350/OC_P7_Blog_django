@@ -1,7 +1,13 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
+from PIL import Image
+from django.utils.translation import gettext_lazy as _
 
+MAX_UPLOAD_SIZE = 2 * 1024 * 1024  # 2MB
+MAX_WIDTH = 500
+MAX_HEIGHT = 500
 
 class LoginForm(forms.Form):
     login_form = forms.BooleanField(widget=forms.HiddenInput, initial=True, required=False)

@@ -1,11 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <h2>Téléverser une photo de profil</h2>
-    <form method="post" enctype="multipart/form-data">
-        {{ form.as_p }}
-        {% csrf_token %}
-        <button type="submit" >Publier</button>
-    </form>
+<div class="form-ticket-container">
+    <div class="form-ticket-box">
+        <form id="profilePhotoForm" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form }}
+            <div>
+                <img id="imagePreview" style="display:none; max-width:100%;">
+            </div>
+            <button type="submit">Upload</button>
+        </form>
+        <div id="error" style="color: red;"></div>
+    </div>
+</div>
     
 {% endblock content %}

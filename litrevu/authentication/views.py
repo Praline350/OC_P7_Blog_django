@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth import update_session_auth_hash
+from django.urls import reverse
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import PasswordChangeForm
 from django.views.generic import View
 
+from authentication.models import User
 from authentication.forms import LoginForm, SignUpForm, UploadProfilePhotoForm
 
 class LoginPageView(View):
@@ -58,14 +62,20 @@ def logout_user(request):
     return redirect('login')
 
 
-def upload_profile_photo(request):
-    form = UploadProfilePhotoForm(instance=request.user)
-    if request.method == 'POST':
-        form = UploadProfilePhotoForm(request.POST, request.FILES, instance=request.user)
+class UploadProfilePhotoView(View):
+    template_name = 'authentication/upload_profile_photo.html'
+    form_class = UploadProfilePhotoForm
+
+    def get(self, request):
+        form = self.form_class(instance=request.user)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('home')
-    return render(request, 'authentication/upload_profile_photo.html', context={'form': form})
+            return JsonResponse({'success': True, 'redirect_url': reverse('profile_page')})
+        return JsonResponse({'success': False, 'error': form.errors.as_json()})
 
 
 class ChangePasswordView(LoginRequiredMixin, View):
@@ -85,3 +95,27 @@ class ChangePasswordView(LoginRequiredMixin, View):
         else:
             messages.error(request, 'Veuillez corriger les erreurs ci-dessous.')
         return render(request, self.template_name, {'form': form})
+
+
+class ProfilePageView(LoginRequiredMixin, View):
+    template_name = 'authentication/profile.html'
+    form_class = UploadProfilePhotoForm
+
+    def get(self, request):
+        form = self.form_class(instance=request.user)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+        return render(request, self.template_name, {'form': form})
+    
+
+class UserProfileView(LoginRequiredMixin, View):
+    template_name = 'authentication/user_profile.html'
+
+    def get(self, request, username):
+        user = get_object_or_404(User, username=username)
+        return render(request, self.template_name, context={'user': user})

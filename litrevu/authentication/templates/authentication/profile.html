@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load blog_extras %}
+{% block content %}
+    
+<div class="profile-container">
+    <div class="profile-header">
+        <img class="ticket-avatar" src="{{ user|profile_photo_or_default }}" alt="Profile photo">
+        <div class="profile-name">
+            <h2>{{ user.username|capitalize_first }}</h2>
+            {% if request.user == user %}
+            <a href="{% url 'upload_profile_photo' %}">Changer de photo</a>
+            <a href="{% url 'password_change' %}">Modifier son mot de passe</a>
+            {% endif %}
+        </div>
+        <div class="profile-info">
+            
+        </div>
+        
+    </div>
+</div>
+
+{% endblock content %}
