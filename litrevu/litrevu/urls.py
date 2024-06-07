@@ -30,16 +30,24 @@ urlpatterns = [
          name='password_change'),
     path('', authentication.views.LoginPageView.as_view(), name='login'),
     path('logout/', authentication.views.logout_user, name='logout'),
-    path('home/', blog.views.home, name='home'),
-    path('profile-photo/upload', authentication.views.upload_profile_photo,
+    path('home/', blog.views.HomeView.as_view(), name='home'),
+    path('profile-photo/upload', authentication.views.UploadProfilePhotoView.as_view(),
          name='upload_profile_photo'),
+    path('profile/', authentication.views.ProfilePageView.as_view(), name='profile'),
+    path('profile/<str:username>/', authentication.views.UserProfileView.as_view(), name='user_profile'),
     path('blog/ticket_upload/', blog.views.TicketUploadView.as_view(), name='ticket_upload'),
     path('blog/ticket/<int:pk>/edit/', blog.views.TicketEditView.as_view(), name='ticket_edit'),
     path('blog/ticket/<int:pk>/delete', blog.views.TicketDeleteView.as_view(), name='ticket_delete'),
     path('blog/ticket/<int:pk>/review_upload/', blog.views.ReviewUploadView.as_view(), name='review_upload'),
+    path('blog/review/<int:pk>/edit/', blog.views.ReviewEditView.as_view(), name='review_edit'),
+    path('blog/review/<int:pk>/delete/', blog.views.ReviewDeleteView.as_view(), name='review_delete')
+
+
 
 ]
 
 if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    
+
