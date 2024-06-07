@@ -1,32 +1,33 @@
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import UpdateView, DeleteView
 from django.views.generic import View
 from django.urls import reverse_lazy
-
-
+from authentication.models import User
 from blog.models import Ticket, Image, Review
-from blog.forms import TicketForm, TicketEditForm, ImageForm, ReviewForm
+from blog.forms import TicketForm, TicketEditForm, ImageForm, ReviewForm, ReviewEditForm
 
 
-@login_required
-def home(request):
-    tickets = Ticket.objects.all()
-    reviews = Review.objects.all()
-    star_range = range(1, 6)
-    context = {
-        "tickets": tickets,
-        "reviews": reviews,
-        "star_range": star_range,
-    }
-    for ticket in tickets:
-        ticket.is_creator = ticket.user == request.user
-    for review in reviews:
-        review.is_creator = review.user == request.user
-    return render(request, "blog/home.html", context=context)
+@method_decorator(login_required, name='dispatch')
+class HomeView(View):
+    template_name = 'blog/home.html'
+
+    def get(self, request):
+        tickets = Ticket.objects.all()
+        reviews = Review.objects.all()
+        users = User.objects.exclude(username=request.user.username)
+        star_range = range(1, 6)
+        context = {
+            "users": users,
+            "tickets": tickets,
+            "reviews": reviews,
+            "star_range": star_range,
+        }
+        return render(request, self.template_name, context)
 
 
 class TicketUploadView(LoginRequiredMixin, View):
@@ -106,7 +107,7 @@ class ReviewUploadView(LoginRequiredMixin, View):
 
 class ReviewEditView(LoginRequiredMixin, UpdateView):
     model = Review
-    form_class = TicketEditForm
+    form_class = ReviewEditForm
     template_name = "blog/review_edit.html"
     success_url = reverse_lazy("home")
 
@@ -123,3 +124,4 @@ class ReviewDeleteView(LoginRequiredMixin, DeleteView):
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(user=self.request.user)
+

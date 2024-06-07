@@ -54,3 +54,12 @@ class ReviewForm(forms.ModelForm):
         if ticket:
             self.fields['ticket'].initial = ticket
             self.fields['ticket'].queryset = models.Ticket.objects.filter(pk=ticket.pk)
+
+
+class ReviewEditForm(forms.ModelForm):
+    class Meta:
+        model = models.Review
+        fields = ['rating', 'headline', 'body']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)

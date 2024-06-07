@@ -1,10 +1,15 @@
+import os
 import requests
+from dotenv import load_dotenv
+
+# Charger les variables d'environnement à partir du fichier .env
+load_dotenv()
 
 
 class APIFecther:
     def __init__(self):
         self.url = 'https://www.googleapis.com/books/v1/volumes'
-        self.key = ''
+        self.key = os.getenv('API_KEY')
 
     def get_books(self, query):
         url = 'https://www.googleapis.com/books/v1/volumes'
