@@ -1,4 +1,5 @@
 {% load static %}
+{% load blog_extras %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,11 +7,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,800&display=swap">
-        <link href="{% static 'css/style.css' %}" rel="stylesheet" />
-        <link href="{% static 'css/login.css' %}" rel="stylesheet" />
-        <link href="{% static 'css/feed.css' %}" rel="stylesheet" />
-        <link href="{% static 'css/forms.css' %}" rel="stylesheet" />
-
+        <link href="{% static 'css/main.css' %}" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+        <script src="{% static 'js/cropper.js' %}" defer></script>
         <script src="{% static 'js/login.js' %}" defer></script>
         <title>LitRevu</title>
     </head>
@@ -23,14 +22,11 @@
             </div>
             <div class="nav-right">
                 <a class="fancy-link" href="{% url 'home' %}">Flux</a>
-                <!-- Lien pour liste user-->
+                <a class="fancy-link" href="{% url 'profile' %}">Profil</a>
                 <!-- lien pour profile + photo profile-->
                 <a class="fancy-link" href="{% url 'logout' %}">Se déconnecter</a>
-                {% if user.profile_photo %}
-                    <img id="avatar" src="{{ user.profile_photo.url }}">
-                {% else %}
-                    <img id="avatar" src="{% static 'images/default_profile.png' %}">
-                {% endif %}
+                <img class="avatar " src="{{ user|profile_photo_or_default }}">
+                
                 
             </div>
         </nav>
@@ -51,6 +47,7 @@
             <p>Vous êtes connecté en tant que {{ request.user }}. 
             <a class="fancy-link" href="{% url 'upload_profile_photo' %}">changer de photo</a>
         {% endif %}
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </body>
 </html>
