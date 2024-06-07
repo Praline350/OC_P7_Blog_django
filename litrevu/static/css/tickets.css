@@ -10,7 +10,7 @@
 
 .ticket-header{
     display: grid;
-    grid-template-columns: 230px 260px 90px 20px;
+    grid-template-columns: 230px 240px 40px 1fr;
     gap: 15px;
     align-items: center;
     padding-bottom: 30px;
@@ -51,11 +51,12 @@
 
 
 .ticket-header__title{
-    text-align: left;
+    text-align: center;
     
 }
 
 .ticket-header__time{
+    grid-column: 4;
     text-align: right;
 }
 

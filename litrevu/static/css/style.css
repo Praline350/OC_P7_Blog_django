@@ -37,13 +37,11 @@ p {
 	letter-spacing: 0.5px;
 }
 
-#avatar {
-    height: 50px;
-    width: 50px; /* Assurer une forme carrée */ /* Utiliser 50% pour obtenir un cercle parfait */
-    padding-left: 40px;
-    padding-right: 20px;
-    object-fit: cover; /* Assurer que l'image s'adapte bien */
-    box-sizing: content-box; /* Réinitialiser le box-sizing pour cet élément */
+.avatar {
+    width: 50px;
+    height: auto;
+    border-radius: 50px;
+    margin-left: 20px;
 }
 
 
@@ -121,4 +119,23 @@ p {
 .fancy-link:hover::after {
     visibility: visible;
     transform: scaleX(1);
+}
+
+.profile-link {
+    color: #007bff; /* Couleur du texte du lien */
+    text-decoration: none; /* Retire le soulignement par défaut */
+    font-weight: bold; /* Rend le texte en gras */
+}
+
+.profile-link:hover {
+    color: #0056b3; /* Couleur du texte du lien au survol */
+    text-decoration: underline; /* Ajoute un soulignement au survol */
+}
+
+.profile-link:visited {
+    color: #5a5a5a; /* Couleur du texte du lien visité */
+}
+
+.profile-link:active {
+    color: #00376b; /* Couleur du texte du lien actif */
 }

@@ -5,8 +5,6 @@
     padding: 20px;
 }
 
-
-
 .feed{
     grid-column: 2;
     grid-row: 1;
@@ -16,6 +14,7 @@
     justify-self: center;
     grid-row: 1;
     grid-column: 1;
+    justify-content: left;
 }
 
 .side-right{
@@ -38,5 +37,40 @@
     border-bottom: 2px solid black ;
 }
 
+.user-container{
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: left;
+}
+
+.user-container h3{
+    padding-bottom: 20px;
+    border-bottom: 2px solid black;
+}
+
+.all-user{
+    padding-left: 70px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+    text-align: left;
+    align-items: center;
+    justify-content: end;
+}
+
+
+
+.all-user img{
+    columns: 1;
+    height: 50px;
+    width: auto;
+}
+
+.all-user p{
+    columns: 2;
+
+}
 
 

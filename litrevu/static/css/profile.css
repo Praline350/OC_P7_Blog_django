@@ -1,0 +1,42 @@
+.profile-container{
+    margin: 50px;
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+}
+
+.profile-header{
+    border: 2px solid #D4A373;
+    border-radius: 15px;
+    padding: 15px;
+    background: white;
+    grid-column: 2;
+    display: grid;
+    grid-template-columns: 170px 1fr 2fr 1fr;
+}
+
+.profile-header img{
+    grid-column: 1;
+    width: 150px;
+    height: auto;
+    justify-self: center;
+    align-self: center;
+}
+
+.profile-name{
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    padding-right: 35px;
+    justify-content: start;
+    
+}
+
+.profile-name h2{
+    text-align: left;
+}
+
+.profile-name a{
+    text-align: left;
+    margin-top: 3px;
+}
