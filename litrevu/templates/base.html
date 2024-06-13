@@ -11,6 +11,11 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
         <script src="{% static 'js/cropper.js' %}" defer></script>
         <script src="{% static 'js/login.js' %}" defer></script>
+        <script src="{% static 'js/nav_profile.js' %}" defer></script>
+        <script src="{% static 'js/modal.js' %}" defer></script>
+        <script src="{% static 'js/api_fetcher.js' %}" defer></script>
+        <script src="{% static 'js/nav_feed.js' %}" defer></script>
+
         <title>LitRevu</title>
     </head>
     <body>
@@ -22,10 +27,11 @@
             </div>
             <div class="nav-right">
                 <a class="fancy-link" href="{% url 'home' %}">Flux</a>
+                <a class="fancy-link" href="{% url 'search_users' %}">Recherche d'amis</a>
                 <a class="fancy-link" href="{% url 'profile' %}">Profil</a>
                 <!-- lien pour profile + photo profile-->
                 <a class="fancy-link" href="{% url 'logout' %}">Se déconnecter</a>
-                <img class="avatar " src="{{ user|profile_photo_or_default }}">
+                <img class="avatar " src="{{ request.user|profile_photo_or_default }}">
                 
                 
             </div>
@@ -34,19 +40,18 @@
         {% endif %}
 
         {% if messages %}
-            <ul>
+        <div id="errorModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
                 {% for message in messages %}
-                    <li>{{ message }}</li>
+                <div class="message {{ message.tags }}">{{ message }}</div>
                 {% endfor %}
-            </ul>
+            </div>
+        </div>
         {% endif %}
 
         {% block content %}{% endblock content %}
 
-        {% if user.is_authenticated %}
-            <p>Vous êtes connecté en tant que {{ request.user }}. 
-            <a class="fancy-link" href="{% url 'upload_profile_photo' %}">changer de photo</a>
-        {% endif %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </body>
