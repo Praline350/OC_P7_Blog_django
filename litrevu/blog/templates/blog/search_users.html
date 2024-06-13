@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load blog_extras %}
+{% block content %}
+
+<div class="form-ticket-container">
+    <div class="form-ticket-box">
+        <h1>Rechercher un utilisateur</h1>
+        <form class="form-ticket" method="get" action="{% url 'search_users' %}">
+            {{ form.as_p }}
+            <button type="submit">Rechercher</button>
+        </form>
+
+        {% if query %}
+            {% if results %}
+                <ul>
+                    {% for user in results %}
+                        <li>
+                            <div class="search-result">
+                            <a class="profile-link" href="{% url 'user_profile' username=user.username %}">{{ user.username|capitalize_first }}</a>
+                            <img class="ticket-avatar" src="{{ user.profile_photo.url }}">
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Aucun utilisateur trouvé.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

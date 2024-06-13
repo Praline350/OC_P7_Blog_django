@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 
-  <h2>Confirmer la suppression du ticket</h2>
-  <p>Êtes-vous sûr de vouloir supprimer ce ticket : "{{ object.title }}" ?</p>
-  <form method="post">
-    {% csrf_token %}
-    <button type="submit">Oui, supprimer</button>
-    <a href="{% url 'home' %}">Annuler</a>
-  </form>
+<div class="form-ticket-container">
+  <div class="form-ticket-box">
+    <h2>Confirmer la suppression du ticket</h2>
+    <p>Êtes-vous sûr de vouloir supprimer ce ticket : "{{ object.title }}" ?</p>
+    <form class="form-ticket" method="post">
+      {% csrf_token %}
+      <button type="submit">Oui, supprimer</button>
+      <a href="{% url 'home' %}">Annuler</a>
+    </form>
+  </div>
+</div>
   
 {% endblock %}

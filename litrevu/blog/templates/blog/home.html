@@ -5,110 +5,47 @@
 {% block content %}
 <main class="main-content">
     <div class="feed">
-        {% for ticket in tickets %}
-        <div class="ticket">
-            <div class="ticket-header">
-                <div class="ticket-user-info">
-                    <img class="ticket-avatar" src="{{ ticket.user|profile_photo_or_default }}" alt="Profile photo">
-                    <div class="ticket-details">
-                        <a class="ticket-header__user profile-link" href="{% url 'user_profile' username=ticket.user %}">
-                            {% get_ticket_display ticket.user as user_display %}
-                            {{ user_display|capitalize_first }}
-                        </a>
-                        <p class="ticket-type">For {{ ticket.type }}</p>
-                    </div>
-                </div>
-                <h3 class="ticket-header__title">{{ ticket.title }} <br> - Author</h3>
-                {% if ticket.user == request.user %}
-                <div class="dropdown">
-                    <button class="dropbtn">
-                        <img src="{% static 'images/btn_menu.png' %}" alt="Options">
-                    </button>
-                    <div class="dropdown-content">
-                        <a href="{% url 'ticket_edit' ticket.pk %}">Modifier</a>
-                        <a href="{% url 'ticket_delete' ticket.pk %}">Supprimer</a>
-                    </div>
-                </div>
-                {% endif %}
-                <p class="ticket-header__time">{{ticket.time_created|get_time_display}}</p>
-                
-            </div>
-
-            <div class="ticket-content">
-                <p class="ticket-content__desc">{{ ticket.description }}</p>
-                {% if ticket.image and ticket.image.url %}
-                <img class="ticket-content__img" src="{{ ticket.image.url }}" alt="{{ ticket.title }}">
-                {% else %}
-                <img class="ticket-content__img" src="{% static 'images/no_image.png' %}">
-                {% endif %}
-            </div>
-
-            {% if ticket.review_set.exists %}
-                {% for review in ticket.review_set.all %}
-                <div class="review-container">
-                    {% if review.user == request.user%}
-                    <h3>{% get_ticket_display review.user %} avait publié une critique</h3>
-                    {% else %}
-                    <h3>{{ review.user.username|capitalize_first }} a publié une critique</h3>
-                    {% endif %}
-                    <div class="review">
-                        <div class="review-rating">
-                            <h4>{{ review.headline }}</h4>
-                            <p>
-                                {% for i in star_range %}
-                                    {% if i <= review.rating %}
-                                        <span class="star star-filled">&#9733;</span>
-                                    {% else %}
-                                        <span class="star">&#9733;</span>
-                                    {% endif %}
-                                {% endfor %}
-                            </p>
-                        </div>
-                        <p class="review-body">{{ review.body }}</p>
-                    </div>
-                    {% if review.user == request.user %}
-                        <div class="review-menu">
-                            <div class="dropdown">
-                                <button class="dropbtn">
-                                    <img src="{% static 'images/btn_menu.png' %}" alt="Options">
-                                </button>
-                                <div class="dropdown-content">
-                                    <a href="{% url 'review_edit' review.pk %}">Modifier</a>
-                                    <a href="{% url 'review_delete' review.pk %}">Supprimer</a>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-                </div>
-                {% endfor %}
-            {% else %}
-            <div class="button-container">
-                <a class="button-review" href="{% url 'review_upload' ticket.pk %}">Soumettre une critique</a>
-            </div>
-            {% endif %}
-
+        <div class="feed-nav">
+            <h3 class="fancy-link nav-feed-link" data-content="all-posts">Tous les posts</h3>
+            <h3 class="fancy-link nav-feed-link" data-content="follows-posts">Posts des amis</h3>
         </div>
-        {% endfor %}
+        <div id="all-posts" class="feed">
+            {% include 'blog/ticket_list.html' with tickets=tickets %}
+        </div>
+    
+        <div id="follows-posts" class="feed" >
+            {% include 'blog/ticket_list.html' with tickets=follows_tickets %}
+        </div>
     </div>
     
     <div class="side-left">
         <div class="user-container">
-            <h3>Les Utilisateurs</h3>
-            <div class="all-user">
-                {% for user in users %}
-                <img class="ticket-avatar" src="{{ user|profile_photo_or_default }}">
-                <a class="profile-link" href="{% url 'user_profile' username=user.username %}">{{ user.username|capitalize_first }}</a>
-                {%  endfor %}
+            <div class="side-sticky-left">
+                <div class="scrollable-content">
+                    <h3>Vos amis</h3>
+                    <div class="all-user">
+                        {% for user in following %}
+                        <a class="profile-link" href="{% url 'user_profile' username=user.username %}">{{ user.username|capitalize_first }}</a>
+                        <img class="ticket-avatar" src="{{ user|profile_photo_or_default }}">
+                        {% endfor %}
+                    </div>
+                    <h3>Les Utilisateurs</h3>
+                    <div class="all-user">
+                        {% for user in users %}
+                        
+                        <a class="profile-link" href="{% url 'user_profile' username=user.username %}">{{ user.username|capitalize_first }}</a>
+                        <img class="ticket-avatar" src="{{ user|profile_photo_or_default }}">
+                        {%  endfor %}
+                    </div>
+                </div>
             </div>
-            <div class="follow-user">
-
-            </div>   
         </div>
     </div>
     <div class="side-right">
-        <div class="side-sticky">
+        <div class="side-sticky-right">
             <h2 class="side-title">Pour participer à la communauté !</h2>
             <a class="button-review" href="{% url 'ticket_upload' %}">Demander une critique</a>
+            <a class="button-review" href="{% url 'create_ticket_review' %}">Créer une critique</a>
         </div>  
     </div>
 </main>

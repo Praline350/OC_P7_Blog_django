@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="form-ticket-container">
+    <div class="form-ticket-box">
+        <h1>Créer une Critique</h1>
+        <form class="form-ticket" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.ticket_title.label_tag }} {{ form.ticket_title }}
+            {{ form.ticket_description.label_tag }} {{ form.ticket_description }}
+            {{ form.ticket_image.label_tag }} {{ form.ticket_image }}
+            <hr>
+            {{ form.review_rating.label_tag }} {{ form.review_rating }}
+            {{ form.review_headline.label_tag }} {{ form.review_headline }}
+            {{ form.review_body.label_tag }} {{ form.review_body }}
+            
+            <button type="submit">Soumettre</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

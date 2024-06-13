@@ -5,8 +5,18 @@
         <div class="form-ticket-box">
             <h2>-Ecrire un ticket-<br>-Demande de critique-</h2>
             <form class="form-ticket" method="post" enctype="multipart/form-data">
-                {{ ticket_form.as_p }}
                 {% csrf_token %}
+                {{ ticket_form.type.label_tag }} {{ ticket_form.type }}
+                {{ ticket_form.title.label_tag }} {{ ticket_form.title }}
+                <button type="button" id="search-books">Rechercher le livre</button>
+                <div>
+                    <select id="book-select" style="display: none;"></select>
+                </div>
+                {{ ticket_form.author.label_tag }} {{ ticket_form.author }}
+                <input type="hidden" id="id_image_url" name="image_url">
+                <br>
+                {{ ticket_form.description.label_tag }} {{ ticket_form.description }}
+                <img id="image-preview" src="#" alt="Image Preview" style="display: none;"/>
                 <button type="submit">Publier</button>
             </form>
         </div>

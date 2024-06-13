@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blog.models import Ticket, Review, UserFollows
+from blog.models import Ticket, Review, UserFollows, UserBlock
 
 
 @admin.register(Ticket)
@@ -13,3 +13,4 @@ class ReviewAdmin(admin.ModelAdmin):
 
 
 admin.site.register(UserFollows)
+admin.site.register(UserBlock)

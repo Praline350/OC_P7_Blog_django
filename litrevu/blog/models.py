@@ -13,6 +13,7 @@ class Ticket(models.Model):
         (ARTICLE, "Article"),
     ]
     title = models.CharField(max_length=128)
+    author = models.CharField(max_length=100, blank=True, null=True)
     type = models.CharField(max_length=20, choices=TICKET_TYPE_CHOICES, default=BOOK)
     description = models.TextField(max_length=2048, blank=True)
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -70,3 +71,17 @@ class UserFollows(models.Model):
             "user",
             "followed_user",
         )
+    
+    def __str__(self):
+        return f"{self.user} follow {self.followed_user}"
+
+
+class UserBlock(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='blocking')
+    blocked_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='blocked_by')
+
+    class Meta:
+        unique_together = ('user', 'blocked_user')
+
+    def __str__(self):
+        return f"{self.user} blocks {self.blocked_user}"
