@@ -2,11 +2,22 @@
     margin: 50px;
     display: grid;
     grid-template-columns: 1fr 5fr 1fr;
+    grid-template-rows: auto;
+}
+
+.profile-container h4{
+    text-align: left;
+}
+
+.profile-container p{
+    text-align: left;
 }
 
 .profile-header{
     border: 2px solid #D4A373;
-    border-radius: 15px;
+    border-bottom: none;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
     padding: 15px;
     background: white;
     grid-column: 2;
@@ -39,4 +50,92 @@
 .profile-name a{
     text-align: left;
     margin-top: 3px;
+    font-weight: 300;
 }
+
+.profile-info{
+    grid-column: 4;
+    justify-self: center;
+    align-self: center;
+}
+
+.profile-info p {
+    text-align: center;
+}
+
+
+.nav-profile{
+    background: white;
+    grid-row: 2;
+    grid-column: 2 ;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+    padding-right: 50px;
+    padding-bottom: 6px;
+    border: 2px solid #D4A373;
+    border-top: none;
+}
+
+.nav-profile h3{
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.main-content-profile{
+    grid-row: 3;
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.feed-profile{
+    display: grid;
+    grid-template-columns: 2;
+    margin: 15px;
+    padding: 15px;
+    padding-bottom: 40px;
+    text-align: center;
+}
+
+.feed-profile .ticket-content{
+    padding: 40px;
+}
+
+.follow-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    border-left: 1px solid #D4A373;
+    border-right: 1px solid #D4A373;
+}
+
+
+.followers-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    padding: 10px;
+    
+    
+}
+
+
+.followers-info a{
+    font-size: 1.2em;
+    font-weight: 400;
+    margin-right: 40px;
+}
+.review-profile{
+    background: white;
+}
+
+.btn-profile{
+    margin-bottom: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+
+}
+

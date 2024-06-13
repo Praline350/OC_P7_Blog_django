@@ -8,14 +8,34 @@
 .feed{
     grid-column: 2;
     grid-row: 1;
+    transition: opacity 0.5s ease-in-out;
 }
 
-.side-left{
-    justify-self: center;
-    grid-row: 1;
-    grid-column: 1;
-    justify-content: left;
+.feed-hidden {
+    opacity: 0;
+    pointer-events: none; /* Désactive les événements sur l'élément caché */
+    
 }
+
+
+.feed-nav{
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 8px;
+}
+
+.nav-feed-link{
+    cursor: pointer;
+    font-weight: 400;
+}
+
+.nav-feed-link.active {
+    font-weight: 700; /* Met en gras l'élément actif */
+}
+
+
+
+
 
 .side-right{
     
@@ -25,52 +45,85 @@
     grid-row: 1;
     grid-column: 3;
 }
-
-.side-sticky{
+.side-sticky-right{
     position: sticky;
     top: 200px;
 }
 
 .side-title{
-   
-    padding: 15px;
-    border-bottom: 2px solid black ;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #D4A373;
 }
 
-.user-container{
-    padding-top: 100px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
+.side-left {
+    justify-self: center;
+    grid-row: 1;
+    grid-column: 1;
     justify-content: left;
 }
 
-.user-container h3{
-    padding-bottom: 20px;
-    border-bottom: 2px solid black;
+.side-sticky-left {
+    position: sticky;
+    top: 110px; /* Commence à 200px du haut */
+    overflow: hidden;
+    direction: rtl;
 }
 
-.all-user{
-    padding-left: 70px;
+
+.scrollable-content {
+    max-height: calc(100vh - 200px); /* Ajustez cette valeur en fonction de la hauteur de vos titres et autres éléments non-scrollables */
+    overflow-y: auto; /* Permet le défilement interne */
+    padding: 10px;
+    padding-left: 30px; /* Ajouter du padding si nécessaire */
+}
+
+/* Personnaliser la barre de défilement pour les navigateurs WebKit */
+.scrollable-content::-webkit-scrollbar {
+    width: 8px; /* Largeur de la barre de défilement */
+    margin-left: 10px; /* Marge pour décaler la barre de défilement */
+}
+
+.scrollable-content::-webkit-scrollbar-thumb {
+    background-color: darkgrey; /* Couleur de la poignée de la barre de défilement */
+    border-radius: 10px; /* Bordure arrondie */
+}
+
+/* Personnaliser la barre de défilement pour Firefox */
+.scrollable-content {
+    scrollbar-width: thin; /* Barre de défilement fine */
+    scrollbar-color: darkgrey transparent; /* Couleur de la poignée et de l'arrière-plan de la barre de défilement */
+}
+
+.user-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: flex-start; /* Assurez-vous que les enfants commencent par le haut */
+    height: 100%; /* Assurez-vous que le conteneur prend toute la hauteur */
+}
+
+.user-container h3 {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #D4A373 ;
+}
+
+.all-user {
+    margin-bottom: 40px;
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 2fr 1fr;
     gap: 30px;
     text-align: left;
     align-items: center;
-    justify-content: end;
+    justify-content: start;
 }
 
-
-
-.all-user img{
+.all-user img {
     columns: 1;
     height: 50px;
     width: auto;
 }
 
-.all-user p{
+.all-user p {
     columns: 2;
-
 }
-
 

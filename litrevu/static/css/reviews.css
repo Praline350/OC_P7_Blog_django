@@ -11,7 +11,31 @@
 
 .review-container h3{
     text-align: center;
+}
 
+.review-container h4{
+    font-weight: 300;
+    font-size: 0.7em;
+}
+
+.review-header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    border-bottom: 2px solid #D4A373;
+}
+
+.review-user-info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.review-user-info a{
+    margin-right: 5px;
+    font-size: 1.2em;
+    
 }
 
 .review-rating{
@@ -21,8 +45,9 @@
     align-items: center;
 }
 
-.review-rating h4{
+.review-rating h5{
     font-weight: 500;
+    font-size: 1em;
 }
 
 .review-body{
@@ -56,4 +81,8 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 10px;
+}
+
+.drop-review{
+    padding: 15px;
 }

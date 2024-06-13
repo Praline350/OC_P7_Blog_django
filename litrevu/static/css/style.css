@@ -122,20 +122,17 @@ p {
 }
 
 .profile-link {
-    color: #007bff; /* Couleur du texte du lien */
+    cursor: pointer;
     text-decoration: none; /* Retire le soulignement par défaut */
     font-weight: bold; /* Rend le texte en gras */
 }
 
 .profile-link:hover {
-    color: #0056b3; /* Couleur du texte du lien au survol */
+    color: #d99450;
     text-decoration: underline; /* Ajoute un soulignement au survol */
 }
 
-.profile-link:visited {
-    color: #5a5a5a; /* Couleur du texte du lien visité */
-}
 
 .profile-link:active {
-    color: #00376b; /* Couleur du texte du lien actif */
+    color: #d99450; /* Couleur du texte du lien actif */
 }

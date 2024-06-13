@@ -34,7 +34,8 @@
 /* Bouton menu deroulant tickets */
 
 .dropdown {
-    
+
+    padding:0;
     position: relative;
     display: inline;
     align-items: center;
@@ -42,6 +43,7 @@
 }
 
 .dropbtn {
+    padding:0;
     padding-right: 5px;
     background: none;
     border: none;
