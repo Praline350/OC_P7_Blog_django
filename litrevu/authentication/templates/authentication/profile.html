@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load blog_extras %}
+{% load static %}
 {% block content %}
     
 <div class="profile-container">
@@ -8,14 +9,48 @@
         <div class="profile-name">
             <h2>{{ user.username|capitalize_first }}</h2>
             {% if request.user == user %}
-            <a href="{% url 'upload_profile_photo' %}">Changer de photo</a>
-            <a href="{% url 'password_change' %}">Modifier son mot de passe</a>
+            <a class="profile-link" href="{% url 'upload_profile_photo' %}">Changer de photo</a>
+            <a class="profile-link" href="{% url 'password_change' %}">Modifier son mot de passe</a>
             {% endif %}
         </div>
         <div class="profile-info">
-            
+            <p>Nombre de tickets : {{ tickets_count }}</p>
+            <p>Nombre de reviews : {{ reviews_count }}</p>
+            <p>Followers : {{ followers_count }}</p>
+            <p>Follows : {{ following_count }}</p>
         </div>
-        
+    </div>
+
+    <div class="nav-profile">
+        <h3 class="fancy-link" data-content="followers">Followers</h3>
+        <h3 class="fancy-link" data-content="follows">Follows</h3>
+        <h3 class="fancy-link" data-content="posts">Posts</h3>
+    </div>
+    <div class="main-content-profile">
+        <div id="followers" class="feed-profile" style="display:none;">
+            <div class="follow-grid">
+                {% for follower in user.followed_by.all %}
+                <div class="followers-info">
+                    <a class="profile-link" href="{% url 'user_profile' username=follower.user.username %}">{{ follower.user.username|capitalize_first}}</a>
+                    <img class="ticket-avatar" src="{{ follower.user|profile_photo_or_default }}">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div id="follows" class="feed-profile" style="display:none;">
+            <div class="follow-grid">
+                {% for user in follows_users %}
+                <div class="followers-info">
+                    <a class="profile-link" href="{% url 'user_profile' username=user.username %}">{{ user.username|capitalize_first}}</a>
+                    <img class="ticket-avatar" src="{{ user|profile_photo_or_default }}">
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+        <div id="posts" class="feed-profile" style="display:none;">
+            {% include 'blog/ticket_list.html' with tickets=tickets %}
+        </div>
     </div>
 </div>
 

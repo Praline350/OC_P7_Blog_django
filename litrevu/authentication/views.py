@@ -12,6 +12,8 @@ from django.views.generic import View
 
 from authentication.models import User
 from authentication.forms import LoginForm, SignUpForm, UploadProfilePhotoForm
+from blog.models import Ticket, Review, UserFollows, UserBlock
+
 
 class LoginPageView(View):
     template_name = 'authentication/login.html'
@@ -74,7 +76,7 @@ class UploadProfilePhotoView(View):
         form = self.form_class(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
-            return JsonResponse({'success': True, 'redirect_url': reverse('profile_page')})
+            return JsonResponse({'success': True, 'redirect_url': reverse('profile')})
         return JsonResponse({'success': False, 'error': form.errors.as_json()})
 
 
@@ -102,8 +104,38 @@ class ProfilePageView(LoginRequiredMixin, View):
     form_class = UploadProfilePhotoForm
 
     def get(self, request):
-        form = self.form_class(instance=request.user)
-        return render(request, self.template_name, {'form': form})
+        user = request.user
+        form = self.form_class(instance=user)
+        tickets = Ticket.objects.filter(user=user)
+        reviews = Review.objects.filter(user=user)
+        tickets_count = tickets.count()
+        reviews_count = reviews.count()
+        following_ids = UserFollows.objects.filter(user=request.user).values_list('followed_user_id', flat=True)
+        follows_users = User.objects.filter(id__in=following_ids)
+        follower_ids = UserFollows.objects.filter(followed_user=request.user).values_list('user_id', flat=True)
+
+        # Obtenir les IDs des utilisateurs bloqués
+        blocked_user_ids = UserBlock.objects.filter(user=request.user).values_list('blocked_user_id', flat=True)
+        
+        following_count = UserFollows.objects.filter(user=user).count()
+        followers_count = UserFollows.objects.filter(followed_user=user).count()
+        star_range = range(1, 6)
+        context = {
+            'form': form,
+            'user': user,
+            'tickets': tickets,
+            'reviews': reviews,
+            'tickets_count': tickets_count,
+            'reviews_count': reviews_count,
+            "star_range": star_range,
+            'following_ids': following_ids,  # Passez les IDs des utilisateurs suivis
+            'follower_ids': follower_ids,  # Passez les IDs des utilisateurs qui suivent l'utilisateur connecté
+            'blocked_user_ids': blocked_user_ids,  # Passez les IDs des utilisateurs bloqués
+            'following_count': following_count,
+            'followers_count': followers_count,
+            'follows_users': follows_users,
+        }
+        return render(request, self.template_name, context=context)
 
     def post(self, request):
         form = self.form_class(request.POST, request.FILES, instance=request.user)
@@ -118,4 +150,35 @@ class UserProfileView(LoginRequiredMixin, View):
 
     def get(self, request, username):
         user = get_object_or_404(User, username=username)
-        return render(request, self.template_name, context={'user': user})
+        tickets_count = Ticket.objects.filter(user=user).count()
+        tickets = Ticket.objects.filter(user=user)
+        reviews = Review.objects.filter(user=user)
+        tickets_count = tickets.count()
+        reviews_count = reviews.count()
+        following_ids = UserFollows.objects.filter(user=request.user).values_list('followed_user_id', flat=True)
+        follows_ids = UserFollows.objects.filter(user=user).values_list('followed_user_id', flat=True)
+        follows_users = User.objects.filter(id__in=follows_ids)
+        follower_ids = UserFollows.objects.filter(followed_user=request.user).values_list('user_id', flat=True)
+
+        # Obtenir les IDs des utilisateurs bloqués
+        blocked_user_ids = UserBlock.objects.filter(user=request.user).values_list('blocked_user_id', flat=True)
+        
+        following_count = UserFollows.objects.filter(user=user).count()
+        followers_count = UserFollows.objects.filter(followed_user=user).count()
+        star_range = range(1, 6)
+        context = {
+            'user': user,
+            'tickets': tickets,
+            'reviews': reviews,
+            'tickets_count': tickets_count,
+            'reviews_count': reviews_count,
+            'following_ids': following_ids,  # Passez les IDs des utilisateurs suivis
+            'follower_ids': follower_ids,  # Passez les IDs des utilisateurs qui suivent l'utilisateur connecté
+            'blocked_user_ids': blocked_user_ids,  # Passez les IDs des utilisateurs bloqués
+            'following_count': following_count,
+            'followers_count': followers_count,
+            "star_range": star_range,
+            "follows_users" : follows_users
+
+        }
+        return render(request, self.template_name, context)
