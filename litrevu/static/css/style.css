@@ -53,6 +53,7 @@ p {
     display: flex;
     align-items: center;
 	justify-content: space-between;
+    border-top: 1px solid black;
 	border-bottom: 2px solid #D4A373;
 	transition: border-bottom-width 0.5s;
 }

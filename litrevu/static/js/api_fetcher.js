@@ -7,6 +7,7 @@ document.getElementById('id_title').addEventListener('keypress', function(event)
 
 
 document.getElementById('search-books').addEventListener('click', function() {
+    console.log('Click')
     const query = document.getElementById('id_title').value;
     fetch(`/search-books-api/?query=${query}`)
         .then(response => response.json())
