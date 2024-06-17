@@ -37,7 +37,6 @@ class HomeView(View):
         combined_users = User.objects.filter(id__in=combined_ids)
         follows_tickets = Ticket.objects.filter(user__in=combined_users).exclude(user__id__in=blocked_users).order_by('-time_created')
         users = User.objects.exclude(username=request.user.username).exclude(id__in=blocked_users)
-        
         star_range = range(1, 6)
         context = {
             "users": users,
@@ -176,12 +175,17 @@ class CreateTicketReviewView(LoginRequiredMixin, View):
         form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
             ticket = Ticket(
-                title=form.cleaned_data['ticket_title'],
-                description=form.cleaned_data['ticket_description'],
-                image=form.cleaned_data['ticket_image'],
+                title=form.cleaned_data['title'],
+                description=form.cleaned_data['description'],
                 user=request.user
             )
             ticket.save()
+            image_url = request.POST.get('image_url')
+            if image_url:
+                image_content = download_image(image_url)
+                if image_content:
+                    ticket.image.save(f'{ticket.title}.jpg', image_content, save=False)
+                    ticket.save() 
             
             review = Review(
                 headline=form.cleaned_data['review_headline'],
@@ -214,6 +218,8 @@ class UnblockUserView(LoginRequiredMixin, View):
 
 
 def search_users(request):
+   
+    
     form = UserSearchForm()
     query = None
     results = []
@@ -258,6 +264,7 @@ def search_books_api(request):
         image = volume_info.get('imageLinks', {}).get('thumbnail', '')
         book_list.append({'title': title, 'authors': authors, 'image': image})
     return JsonResponse({'books': book_list})
+
 
 def download_image(url):
     response = requests.get(url)

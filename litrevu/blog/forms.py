@@ -66,9 +66,10 @@ class ReviewEditForm(forms.ModelForm):
 
 
 class TicketReviewForm(forms.Form):
-    ticket_title = forms.CharField(max_length=100, label='Titre du Ticket')
-    ticket_description = forms.CharField(widget=forms.Textarea, label='Description du Ticket')
-    ticket_image = forms.ImageField(required=False, label='Image du Ticket')
+    title = forms.CharField(max_length=100, label='Nom du livre')
+    author = forms.CharField(max_length=100, label='Auteur' )
+    description = forms.CharField(widget=forms.Textarea, label='Description du Ticket')
+    image = forms.ImageField(required=False, label='Image du Ticket')
     
     review_headline = forms.CharField(max_length=100, label='Titre de la Critique')
     review_body = forms.CharField(widget=forms.Textarea, label='Contenu de la Critique')
