@@ -12,6 +12,7 @@ Cette application web/blog permettant de publier et demander des critiques de li
 ## Table des Matières
 
 - [Installation](#installation)
+- [Api_Books](#api_books)
 - [Utilisation](#utilisation)
 - [Contribuer](#contribuer)
 
@@ -57,6 +58,25 @@ Cette application web/blog permettant de publier et demander des critiques de li
 
 8. Ouvrez votre navigateur et accédez à http://127.0.0.1:8000/
 
+## Api_Books
+
+Configuration de l'api de googleBooks pour une utilisation local
+
+### Étapes
+
+1. Création d'un compte sur le Google developers
+````
+https://developers.google.com/
+````
+2. Récupération d'une clef API avec googleBooksApi
+````
+https://developers.google.com/books/docs/v1/libraries?hl=fr
+````
+3. Créer le fichier .env à la racine du repo
+````
+#.env
+API_KEY={votre clef api}
+````
 
 ## Utilisation
 
