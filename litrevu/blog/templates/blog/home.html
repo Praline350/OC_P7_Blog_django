@@ -4,18 +4,48 @@
 {% load blog_extras %}
 {% block content %}
 <main class="main-content">
-    <div class="feed">
+    <div class="feed page-transition page-transition-active">
         <div class="feed-nav">
             <h3 class="fancy-link nav-feed-link" data-content="all-posts">Tous les posts</h3>
             <h3 class="fancy-link nav-feed-link" data-content="follows-posts">Posts des amis</h3>
         </div>
         <div id="all-posts" class="feed">
-            {% include 'blog/ticket_list.html' with tickets=tickets %}
+            {% include 'blog/ticket_list.html' with tickets_with_reviews=tickets_with_reviews star_range=star_range %}
+            <div class="pagination">
+                <div class="previous-page profile-link">
+                    {% if ticket_page_obj.has_previous %}
+                        <a href="?page={{ ticket_page_obj.previous_page_number }}">précédente</a>
+                    {% endif %}
+                </div>
+                <div class="next-page">
+                    {% if ticket_page_obj.has_next %}
+                        <a class="next-page profile-link" href="?page={{ ticket_page_obj.next_page_number }}">suivante</a>
+                    {% endif %}
+                </div>
+                <div class="current-page">
+                    Page {{ ticket_page_obj.number }} de {{ ticket_page_obj.paginator.num_pages }}.
+                </div>
+            </div>
         </div>
-    
-        <div id="follows-posts" class="feed" >
-            {% include 'blog/ticket_list.html' with tickets=follows_tickets %}
+        <div id="follows-posts" class="feed">
+            {% include 'blog/ticket_list.html' with tickets_with_reviews=follows_tickets_with_reviews star_range=star_range %}
+            <div class="pagination">
+                <div class="previous-page profile-link">
+                    {% if follows_ticket_page_obj.has_previous %}
+                        <a href="?follows_page={{ follows_ticket_page_obj.previous_page_number }}">précédente</a>
+                    {% endif %}
+                </div>
+                <div class="next-page">
+                    {% if follows_ticket_page_obj.has_next %}
+                        <a class="next-page profile-link" href="?follows_page={{ follows_ticket_page_obj.next_page_number }}">suivante</a>
+                    {% endif %}
+                </div>
+                <div class="current-page">
+                    Page {{ follows_ticket_page_obj.number }} de {{ follows_ticket_page_obj.paginator.num_pages }}.
+                </div>
+            </div>
         </div>
+        
     </div>
     
     <div class="side-left">

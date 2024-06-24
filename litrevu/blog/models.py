@@ -71,17 +71,21 @@ class UserFollows(models.Model):
             "user",
             "followed_user",
         )
-    
+
     def __str__(self):
         return f"{self.user} follow {self.followed_user}"
 
 
 class UserBlock(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='blocking')
-    blocked_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='blocked_by')
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="blocking"
+    )
+    blocked_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="blocked_by"
+    )
 
     class Meta:
-        unique_together = ('user', 'blocked_user')
+        unique_together = ("user", "blocked_user")
 
     def __str__(self):
         return f"{self.user} blocks {self.blocked_user}"

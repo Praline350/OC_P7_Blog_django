@@ -5,11 +5,24 @@
     <div class="form-ticket-box">
         <h2>Modifier le billet</h2>
         <form class="form-ticket" method="post" enctype="multipart/form-data">
-            {{ form.as_p }}
             {% csrf_token %}
+            {{ form.type.label_tag }} {{ form.type }}
+            {{ form.title.label_tag }} {{ form.title }}
+            <button type="button" id="search-books">Rechercher le livre</button>
+            <div>
+                <select id="book-select" style="display: none;"></select>
+            </div>
+            {{ form.author.label_tag }} {{ form.author }}
+            <input type="hidden" id="id_image_url" name="image_url">
+            <br>
+            {{ form.description.label_tag }} {{ form.description }}
+            {% if ticket.image %}
+                <img id="image-preview" src="{{ ticket.image.url }}" alt="Image Preview" style="max-width: 200px;"/>
+            {% else %}
+                <img id="image-preview" src="#" alt="Image Preview" style="display: none; max-width: 200px;"/>
+            {% endif %}
             <button type="submit">Enregistrer les modifications</button>
         </form>
     </div>
 </div>
-
 {% endblock %}

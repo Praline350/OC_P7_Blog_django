@@ -1,3 +1,5 @@
+/* Information profile */
+
 .profile-container{
     margin: 50px;
     display: grid;
@@ -83,6 +85,8 @@
     cursor: pointer;
 }
 
+/* Elements du profile followers et posts */
+
 .main-content-profile{
     grid-row: 3;
     grid-column: 2;
@@ -104,6 +108,8 @@
     padding: 40px;
 }
 
+/* Containeur follows */
+
 .follow-grid{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -118,8 +124,6 @@
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
     padding: 10px;
-    
-    
 }
 
 
@@ -128,6 +132,9 @@
     font-weight: 400;
     margin-right: 40px;
 }
+
+/* Elements des posts de l'user */
+
 .review-profile{
     background: white;
 }
@@ -139,3 +146,7 @@
 
 }
 
+.ticket-profile{
+    margin-left: 100px;
+    margin-right: 100px;
+}

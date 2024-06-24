@@ -7,6 +7,7 @@
     <p>Êtes-vous sûr de vouloir supprimer ce ticket : "{{ object.title }}" ?</p>
     <form class="form-ticket" method="post">
       {% csrf_token %}
+      <input type="hidden" name="page" value="{{ request.GET.page }}">
       <button type="submit">Oui, supprimer</button>
       <a href="{% url 'home' %}">Annuler</a>
     </form>

@@ -11,6 +11,7 @@
             {% if request.user == user %}
             <a class="profile-link" href="{% url 'upload_profile_photo' %}">Changer de photo</a>
             <a class="profile-link" href="{% url 'password_change' %}">Modifier son mot de passe</a>
+            <a class="profile-link btn btn-danger" href="{% url 'delete_account' %}">Supprimer mon compte</a>
             {% endif %}
         </div>
         <div class="profile-info">
@@ -48,8 +49,8 @@
             </div>
 
         </div>
-        <div id="posts" class="feed-profile" style="display:none;">
-            {% include 'blog/ticket_list.html' with tickets=tickets %}
+        <div id="posts" class="feed-profile ticket-profile" style="display:none;">
+            {% include 'blog/ticket_list.html' with tickets=tickets_with_reviews star_range=star_range  %}
         </div>
     </div>
 </div>

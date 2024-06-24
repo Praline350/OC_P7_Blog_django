@@ -1,4 +1,7 @@
 
+
+/* Style géneraux pour les tickets */
+
 .ticket{
     margin-bottom: 20px;
     background-color: white;
@@ -28,13 +31,11 @@
     border-radius: 50px;
 }
 
-
 .ticket-details{
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-left: 10px;
-
 }
 
 .ticket-header__user{
@@ -49,10 +50,8 @@
     text-align: center;
 }
 
-
 .ticket-header__title{
     text-align: center;
-    
 }
 
 .ticket-dropdown{
@@ -60,7 +59,6 @@
     justify-self: right;
     align-self: center;
 }
-
 
 .ticket-content{
     margin-top: 10px;

@@ -4,7 +4,9 @@ from PIL import Image
 
 
 class User(AbstractUser):
-    profile_photo = models.ImageField(verbose_name='Profile photo', upload_to='profile_photos/', null=True, blank=True)
+    profile_photo = models.ImageField(
+        verbose_name="Profile photo", upload_to="profile_photos/", null=True, blank=True
+    )
 
     IMAGE_MAX_SIZE = (400, 400)
 
@@ -15,6 +17,7 @@ class User(AbstractUser):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        if self.profile_photo:  # Vérifiez si une photo de profil existe avant de redimensionner
+        if (
+            self.profile_photo
+        ):  # Vérifiez si une photo de profil existe avant de redimensionner
             self.resize_profile_photo()
-

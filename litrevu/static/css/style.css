@@ -2,12 +2,9 @@
 colors: 
 1 : #D4A373
 2 : #FAEDCD
-3 : #FEFAE0
-4 : #E9EDC9
-5 : #CCD5AE
-
-f6f5f7
 */
+
+/* Style Génral du site */
 
 
 * {
@@ -44,6 +41,10 @@ p {
     margin-left: 20px;
 }
 
+.avatar-link{
+    margin: 0;
+    padding: 0;
+}
 
 .navbar{
 	background:white ;
@@ -58,11 +59,9 @@ p {
 	transition: border-bottom-width 0.5s;
 }
 
-
 .navbar h1{
     font-size: 1.5em;
     padding: 5px;
-	
 }
 
 .navbar span{
@@ -71,6 +70,13 @@ p {
 
 .logo{
     width: 60px;
+}
+
+.logo-link{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
 }
 
 .nav-left{
@@ -86,25 +92,25 @@ p {
 	justify-content: space-between;
 }
 
-
 .fancy-link {
     font-size: 1.4em;
     padding-right: 20px;
     padding-left: 20px;
     text-align: center;
-    position: relative; /* Pour positionner le pseudo-élément */
+    position: relative; 
     display: inline-block;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 /* Soulignement animé */
+
 .fancy-link::after {
     content: '';
     position: absolute;
     width: 100%;
-    height: 4px; /* Hauteur de la ligne */
-    bottom: -30px; /* Position en bas du lien */
+    height: 4px;
+    bottom: -30px;
     left: 0;
     background-color: #D4A373;
     visibility: hidden;
@@ -113,8 +119,9 @@ p {
 }
 
 /* Effet de survol */
+
 .fancy-link:hover {
-    color: black; /* Changement de couleur du texte au survol */
+    color: black; 
 }
 
 .fancy-link:hover::after {
@@ -124,16 +131,15 @@ p {
 
 .profile-link {
     cursor: pointer;
-    text-decoration: none; /* Retire le soulignement par défaut */
-    font-weight: bold; /* Rend le texte en gras */
+    text-decoration: none; 
+    font-weight: bold; 
 }
 
 .profile-link:hover {
     color: #d99450;
-    text-decoration: underline; /* Ajoute un soulignement au survol */
+    text-decoration: underline; 
 }
 
-
 .profile-link:active {
-    color: #d99450; /* Couleur du texte du lien actif */
+    color: #d99450; 
 }

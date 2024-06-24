@@ -15,6 +15,7 @@
         <script src="{% static 'js/modal.js' %}" defer></script>
         <script src="{% static 'js/api_fetcher.js' %}" defer></script>
         <script src="{% static 'js/nav_feed.js' %}" defer></script>
+        <script src="{% static 'js/transition.js' %}" defer></script>
 
         <title>LitRevu</title>
     </head>
@@ -22,8 +23,10 @@
         {% if user.is_authenticated %}
         <nav class="navbar">
             <div class="nav-left">
-                <img class="logo" src="{% static 'images/logo_without_title.png' %}">
-                <h1>LIT<span>Review</span></h1>
+                <a class="logo-link"  href="{% url 'home' %}">
+                    <img class="logo" src="{% static 'images/logo_without_title.png' %}" alt="Logo du site">
+                    <h1>LIT<span>Review</span></h1>
+                </a>
             </div>
             <div class="nav-right">
                 <a class="fancy-link" href="{% url 'home' %}">Flux</a>
@@ -31,7 +34,9 @@
                 <a class="fancy-link" href="{% url 'profile' %}">Profil</a>
                 <!-- lien pour profile + photo profile-->
                 <a class="fancy-link" href="{% url 'logout' %}">Se déconnecter</a>
-                <img class="avatar " src="{{ request.user|profile_photo_or_default }}">
+                <a class="avatar-link" href="{% url 'profile' %}"> <!-- Ajoutez ce lien autour de l'image -->
+                    <img class="avatar" src="{{ request.user|profile_photo_or_default }}" alt="photo de profile">
+                </a>
                 
                 
             </div>

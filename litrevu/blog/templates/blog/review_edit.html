@@ -7,6 +7,7 @@
         <form class="form-ticket" method="post" enctype="multipart/form-data">
             {{ form.as_p }}
             {% csrf_token %}
+            <input type="hidden" name="page" value="{{ request.GET.page }}">
             <button type="submit">Enregistrer les modifications</button>
         </form>
     </div>

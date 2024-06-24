@@ -19,8 +19,6 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
-from django.contrib.auth.views import (
-    PasswordChangeView, PasswordChangeDoneView)
 import authentication.views
 import blog.views
 
@@ -30,6 +28,7 @@ urlpatterns = [
          name='password_change'),
     path('', authentication.views.LoginPageView.as_view(), name='login'),
     path('logout/', authentication.views.logout_user, name='logout'),
+    path('delete-account/', authentication.views.delete_account, name='delete_account'),
     path('home/', blog.views.HomeView.as_view(), name='home'),
     path('user/<str:username>/follow/', blog.views.FollowUserView.as_view(), name='follow_user'),
     path('user/<str:username>/unfollow/', blog.views.UnfollowUserView.as_view(), name='unfollow_user'),
@@ -56,5 +55,6 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
     
 

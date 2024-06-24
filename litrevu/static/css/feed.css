@@ -5,6 +5,8 @@
     padding: 20px;
 }
 
+/* Element feed  */
+
 .feed{
     grid-column: 2;
     grid-row: 1;
@@ -13,10 +15,8 @@
 
 .feed-hidden {
     opacity: 0;
-    pointer-events: none; /* Désactive les événements sur l'élément caché */
-    
+    pointer-events: none; 
 }
-
 
 .feed-nav{
     display: flex;
@@ -30,15 +30,12 @@
 }
 
 .nav-feed-link.active {
-    font-weight: 700; /* Met en gras l'élément actif */
+    font-weight: 700; 
 }
 
-
-
-
+/* Cotés exterieur au feed */
 
 .side-right{
-    
     margin-top: 20px;
     justify-self: center;
     text-align: center;
@@ -64,23 +61,23 @@
 
 .side-sticky-left {
     position: sticky;
-    top: 110px; /* Commence à 200px du haut */
+    top: 110px; 
     overflow: hidden;
     direction: rtl;
 }
 
+/* Left Side, Les utilisateur et follows */
 
 .scrollable-content {
-    max-height: calc(100vh - 200px); /* Ajustez cette valeur en fonction de la hauteur de vos titres et autres éléments non-scrollables */
-    overflow-y: auto; /* Permet le défilement interne */
+    max-height: calc(100vh - 200px); 
+    overflow-y: auto; 
     padding: 10px;
-    padding-left: 30px; /* Ajouter du padding si nécessaire */
+    padding-left: 30px; 
 }
 
-/* Personnaliser la barre de défilement pour les navigateurs WebKit */
 .scrollable-content::-webkit-scrollbar {
-    width: 8px; /* Largeur de la barre de défilement */
-    margin-left: 10px; /* Marge pour décaler la barre de défilement */
+    width: 8px;
+    margin-left: 10px; 
 }
 
 .scrollable-content::-webkit-scrollbar-thumb {
@@ -127,3 +124,32 @@
     columns: 2;
 }
 
+/* Elements de pagination */
+
+.pagination{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.previous-page{
+    grid-column: 1 ;
+}
+
+.next-page{
+    grid-column: 3;
+}
+
+.current-page{
+    grid-column: 2;
+}
+
+.page-transition {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.page-transition-active {
+    opacity: 1;
+}

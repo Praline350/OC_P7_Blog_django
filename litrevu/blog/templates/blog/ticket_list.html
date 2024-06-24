@@ -1,21 +1,20 @@
 {% load blog_extras %}
 {% load static %}
 
-{% for ticket in tickets %}
-<div class="ticket">
+{% for item in tickets_with_reviews %}
+    {% with ticket=item.ticket reviews=item.reviews %}
+<div id="ticket-{{ ticket.id }}" class="ticket">
     <div class="ticket-header">
         <div class="ticket-user-info">
             <img class="ticket-avatar" src="{{ ticket.user|profile_photo_or_default }}" alt="Profile photo">
             <div class="ticket-details">
                 {% if ticket.user == request.user %}
                     <a class="ticket-header__user profile-link" href="{% url 'profile' %}">
-                        {% get_ticket_display ticket.user as user_display %}
-                        {{ user_display|capitalize_first }}
+                        Vous
                     </a>
                 {% else %}
                     <a class="ticket-header__user profile-link" href="{% url 'user_profile' username=ticket.user.username %}">
-                        {% get_ticket_display ticket.user as user_display %}
-                        {{ user_display|capitalize_first }}
+                        {{ ticket.user.username|capitalize_first }}
                     </a>
                 {% endif %}
                 <p class="ticket-type">For {{ ticket.type }}</p>
@@ -44,15 +43,15 @@
         {% endif %}
     </div>
 
-    {% if ticket.review_set.exists %}
-        {% for review in ticket.review_set.all %}
+    {% if reviews.exists %}
+            {% for review in reviews %}
         <div class="review-container">
             <div class="review-user-info">
             {% if review.user == request.user %}
-                <a class="profile-link" href="{% url 'profile' %} ">{% get_ticket_display review.user %}</a>
+                <a class="profile-link" href="{% url 'profile' %}">Vous</a>
                 <h3>avait publié une critique</h3>
-                {% else %}
-                <a class="profile-link" href="{% url 'user_profile' username=review.user %} ">{{ review.user.username|capitalize_first }}</a>
+            {% else %}
+                <a class="profile-link" href="{% url 'user_profile' username=review.user.username %}">{{ review.user.username|capitalize_first }}</a>
                 <h3>a publié une critique</h3>
             {% endif %}
             </div>
@@ -79,8 +78,8 @@
                             <img src="{% static 'images/btn_menu.png' %}" alt="Options">
                         </button>
                         <div class="dropdown-content">
-                            <a href="{% url 'review_edit' review.pk %}">Modifier</a>
-                            <a href="{% url 'review_delete' review.pk %}">Supprimer</a>
+                            <a href="{% url 'review_edit' review.pk %}?page={{ request.GET.page }}">Modifier</a>
+                            <a href="{% url 'review_delete' review.pk %}?page={{ request.GET.page }}">Supprimer</a>
                         </div>
                     </div>
                 </div>
@@ -89,7 +88,8 @@
         {% endfor %}
     {% endif %}
     <div class="button-container">
-        <a class="button-review" href="{% url 'review_upload' ticket.pk %}">Soumettre une critique</a>
+        <a class="button-review" href="{% url 'review_upload' ticket.pk %}?page={{ request.GET.page }}">Soumettre une critique</a>
     </div>
 </div>
+{%endwith%}
 {% endfor %}

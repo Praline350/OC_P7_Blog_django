@@ -66,8 +66,8 @@
             </div>
 
         </div>
-        <div id="posts" class="feed-profile" style="display:none;">
-            {% include 'blog/ticket_list.html' with tickets=tickets %}
+        <div id="posts" class="feed-profile ticket-profile" style="display:none;">
+            {% include 'blog/ticket_list.html' with tickets=tickets_with_reviews star_range=star_range %}
         </div>
     </div>
 </div>

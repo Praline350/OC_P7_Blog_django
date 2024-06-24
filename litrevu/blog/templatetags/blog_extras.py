@@ -12,9 +12,10 @@ register = Library()
 
 @register.simple_tag(takes_context=True)
 def get_ticket_display(context, user):
-    if context['user'] == user:
-        return 'Vous'
+    if context["user"] == user:
+        return "Vous"
     return user.username
+
 
 @register.filter
 def get_time_display(time_created):
@@ -30,7 +31,7 @@ def get_time_display(time_created):
 def profile_photo_or_default(user):
     if user.profile_photo:
         return user.profile_photo.url
-    return static('images/default_profile.png')
+    return static("images/default_profile.png")
 
 
 @register.filter
