@@ -18,6 +18,7 @@ from blog.forms import TicketForm, TicketEditForm, ImageForm, ReviewForm
 from blog.forms import ReviewEditForm, TicketReviewForm, UserSearchForm
 
 # Load environment variables from a .env fileload_dotenv()
+load_dotenv()
 
 
 @method_decorator(login_required, name="dispatch")
