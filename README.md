@@ -28,11 +28,11 @@ Cette application web/blog permettant de publier et demander des critiques de li
 
 1. Clonez le dépôt :
    ```bash
-   git clone https://github.com/tonnom/repository.git
+   git clone https://github.com/Praline350/OC_P7_Blog_django
 
 2. Accedez au repository :
     ```bash
-    cd repository
+    cd OC_P7_Blog_django
 
 3. Créer et activer l'environnement virtuel
     ```bash
@@ -43,14 +43,19 @@ Cette application web/blog permettant de publier et demander des critiques de li
     ```bash 
     pip install -r requirements.txt
 
-5. Appliquez les migrations :
+5. Accedez au projet django :
+   ```bash
+   cd litrevu
+
+6. Appliquez les migrations :
     ```bash
     python manage.py migrate
-6. Lancez le serveur de développement :
+    
+7. Lancez le serveur de développement :
     ```bash
     python manage.py runserver
 
-7. Ouvrez votre navigateur et accédez à http://127.0.0.1:8000/
+8. Ouvrez votre navigateur et accédez à http://127.0.0.1:8000/
 
 
 ## Utilisation
