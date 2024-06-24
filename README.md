@@ -53,7 +53,7 @@ Cette application web/blog permettant de publier et demander des critiques de li
 7. Ouvrez votre navigateur et accédez à http://127.0.0.1:8000/
 
 
-### Utilisation
+## Utilisation
 
 #### Fonctionnalitées
 ````
